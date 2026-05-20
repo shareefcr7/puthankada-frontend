@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 type BannerSlide = {
   _id: string;
@@ -17,40 +18,21 @@ type BannerSlide = {
 };
 
 // Fallback banners in case API is not available
+// NOTE: Place generated banner images in `public/images/` with these filenames:
+//  - `grace-banner-desktop.jpg` (recommended 1600×900)
+//  - `grace-banner-mobile.jpg`  (recommended 800×1200)
+// See project README or the prompt below to generate a premium mobile hero image.
 const fallbackSlides: BannerSlide[] = [
   {
     _id: "1",
-    desktopImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&q=90",
-    mobileImage: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=90",
-    tag: "New Arrivals",
-    headline: "Dress for\nthe Moment",
-    subheadline: "Curated pieces for every occasion — minimal, intentional, yours.",
-    cta: "Shop Collection",
-    ctaSecondary: "Explore Lookbook",
-    align: "left",
-    isActive: true,
-  },
-  {
-    _id: "2",
-    desktopImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&q=90",
-    mobileImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=90",
-    tag: "Limited Edition",
-    headline: "Summer\nEssentials",
-    subheadline: "Lightweight fabrics. Bold silhouettes. Made to move with you.",
-    cta: "View All",
-    ctaSecondary: "Find Your Size",
+    desktopImage: "/images/grace-banner-desktop.jpg",
+    mobileImage: "/images/grace-banner-mobile.jpg",
+    tag: "",
+    headline: "",
+    subheadline: "",
+    cta: "",
+    ctaSecondary: "",
     align: "center",
-    isActive: true,
-  },
-  {
-    _id: "3",
-    desktopImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&q=90",
-    mobileImage: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&q=90",
-    tag: "Sale — Up to 40% Off",
-    headline: "Classic\nRedefined",
-    subheadline: "Timeless staples reimagined for the modern wardrobe.",
-    cta: "Shop Sale",
-    align: "right",
     isActive: true,
   },
 ];
@@ -64,7 +46,28 @@ export default function HeroBanner() {
   const [loading, setLoading] = useState(true);
   const api = process.env.NEXT_PUBLIC_API_URL;
 
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    const handle = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile((e as any).matches ?? mq.matches);
+    // Set initial
+    setIsMobile(mq.matches);
+    // Add listener
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", handle as any);
+    } else if (typeof mq.addListener === "function") {
+      mq.addListener(handle as any);
+    }
+    return () => {
+      if (typeof mq.removeEventListener === "function") {
+        mq.removeEventListener("change", handle as any);
+      } else if (typeof mq.removeListener === "function") {
+        mq.removeListener(handle as any);
+      }
+    };
+  }, []);
 
   const fetchBanners = useCallback(async () => {
     if (!api) {
@@ -145,6 +148,7 @@ export default function HeroBanner() {
   }
 
   const slide = slides[current];
+  const isMobileImageUsed = !!(slide?.mobileImage && slide.mobileImage !== slide.desktopImage);
 
   return (
     <>
@@ -155,8 +159,10 @@ export default function HeroBanner() {
           font-family: 'Montserrat', sans-serif;
           position: relative;
           width: 100%;
-          height: 92vh;
-          min-height: 560px;
+          height: auto;
+          aspect-ratio: 16 / 9;
+          min-height: 360px;
+          max-height: 900px;
           background: #fdf5e6;
           overflow: hidden;
         }
@@ -194,8 +200,6 @@ export default function HeroBanner() {
           margin-bottom: 40px;
           opacity: 0.9;
         }
-
-
 
         .nav-btn {
           position: absolute;
@@ -252,13 +256,21 @@ export default function HeroBanner() {
 
         @media (max-width: 768px) {
           .nav-btn { display: none; }
-          .slide-container { padding: 0 5vw; text-align: center !important; justify-content: center !important; }
+          .slide-container { padding: 0 4vw; text-align: center !important; justify-content: center !important; }
 
+          /* mobile-specific banner sizing for consistent crop */
+          .banner-root { aspect-ratio: 3 / 4; min-height: 360px !important; max-height: 820px !important; }
+          
+          /* If there's no separate mobile image, maintain landscape ratio on mobile to keep the whole image on-screen */
+          .banner-root.no-mobile-image { aspect-ratio: 16 / 9; min-height: 200px !important; max-height: 480px !important; }
+
+          .headline { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+          .subheadline { font-size: 0.95rem; margin-bottom: 20px; }
         }
       `}</style>
 
       <section 
-        className="banner-root"
+        className={`banner-root ${!isMobileImageUsed ? 'no-mobile-image' : ''}`}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
@@ -271,54 +283,23 @@ export default function HeroBanner() {
             transition={{ duration: 1, ease: "easeInOut" }}
             className="absolute inset-0"
           >
-            <div 
-              className="absolute inset-0 bg-cover bg-center transition-transform duration-[10000ms] ease-linear scale-110"
-              style={{ 
-                backgroundImage: `url(${isMobile ? slide.mobileImage : slide.desktopImage})`,
-                transform: paused ? 'scale(1.1)' : 'scale(1.15)'
-              }}
-            />
-            {/* Only show overlay if there is text to display */}
-            {(slide.headline || slide.subheadline || slide.tag) && (
-              <div className="absolute inset-0 bg-white/10 backdrop-contrast-[0.9]" />
-            )}
-            
-            <div className={`slide-container ${slide.align}`}>
-              <div className="text-content">
-                {slide.tag && (
-                  <motion.span 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="inline-block text-[0.65rem] tracking-[0.3em] uppercase mb-4 border-b border-[#4b3121]/30 pb-1"
-                  >
-                    {slide.tag}
-                  </motion.span>
-                )}
-                
-                {slide.headline && (
-                  <motion.h1 
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="headline"
-                  >
-                    {slide.headline}
-                  </motion.h1>
-                )}
-                
-                {slide.subheadline && (
-                  <motion.p 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="subheadline"
-                  >
-                    {slide.subheadline}
-                  </motion.p>
-                )}
+            <div className="absolute inset-0 overflow-hidden">
+              <div
+                className="absolute inset-0 transition-transform duration-[10000ms] ease-linear"
+                style={{ transform: isMobile ? 'scale(1)' : (paused ? 'scale(1.02)' : 'scale(1.05)') }}
+              >
+                <Image
+                  src={isMobile && isMobileImageUsed ? slide.mobileImage : slide.desktopImage}
+                  alt={slide.headline || 'banner'}
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: isMobile && isMobileImageUsed ? 'center 40%' : 'center' }}
+                  priority
+                  unoptimized
+                />
               </div>
             </div>
+            {/* Image-only hero: no text overlay for cleaner composition on mobile */}
           </motion.div>
         </AnimatePresence>
 
