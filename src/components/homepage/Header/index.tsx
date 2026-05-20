@@ -259,10 +259,10 @@ export default function HeroBanner() {
           .slide-container { padding: 0 4vw; text-align: center !important; justify-content: center !important; }
 
           /* mobile-specific banner sizing for consistent crop */
-          .banner-root { aspect-ratio: 3 / 4; min-height: 360px !important; max-height: 820px !important; }
+          .banner-root { aspect-ratio: 3 / 4; height: auto !important; min-height: 360px !important; max-height: 820px !important; }
           
           /* If there's no separate mobile image, maintain landscape ratio on mobile to keep the whole image on-screen */
-          .banner-root.no-mobile-image { aspect-ratio: 16 / 9; min-height: 200px !important; max-height: 480px !important; }
+          .banner-root.no-mobile-image { aspect-ratio: 16 / 9; height: auto !important; min-height: 200px !important; max-height: 480px !important; }
 
           .headline { font-size: clamp(1.6rem, 6vw, 2.2rem); }
           .subheadline { font-size: 0.95rem; margin-bottom: 20px; }
