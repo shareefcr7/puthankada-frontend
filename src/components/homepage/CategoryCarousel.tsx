@@ -49,7 +49,7 @@ export default function CategoryCarousel() {
   if (!loading && categories.length === 0) return null;
 
   return (
-    <section className="max-w-frame mx-auto text-center px-4 xl:px-0 py-16 md:py-24">
+    <section className="max-w-frame mx-auto text-center px-4 xl:px-0 py-8 md:py-12">
       <motion.h2
         initial={{ y: 40, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -57,7 +57,7 @@ export default function CategoryCarousel() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className={cn([
           integralCF.className,
-          "text-[32px] md:text-5xl mb-12 md:mb-20 capitalize tracking-tight"
+          "text-[32px] md:text-5xl mb-8 md:mb-12 capitalize tracking-tight"
         ])}
       >
         EXPLORE OUR COLLECTIONS
@@ -87,7 +87,7 @@ export default function CategoryCarousel() {
                     href={`/shop?categories=${encodeURIComponent(cat.name)}`}
                     className="flex flex-col items-center gap-5 group"
                   >
-                    <div className="relative w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden bg-[#f5ede4] shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2 border border-transparent group-hover:border-[#4b3121]/10">
+                    <div className="relative w-[180px] h-[180px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden bg-brand shadow-sm transition-all duration-500 group-hover:shadow-xl group-hover:-translate-y-2 border border-transparent group-hover:border-brand/10 flex items-center justify-center">
                       {cat.image ? (
                         <Image
                           src={cat.image}
@@ -95,6 +95,7 @@ export default function CategoryCarousel() {
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-110"
                           unoptimized
+                          sizes="(max-width: 768px) 180px, 220px"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-5xl grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
@@ -102,21 +103,21 @@ export default function CategoryCarousel() {
                         </div>
                       )}
                     </div>
-                    <span className="text-sm md:text-base font-bold text-[#4b3121] tracking-wide uppercase group-hover:text-black transition-colors">
+                    <span className="text-sm md:text-base font-bold text-brand tracking-wide uppercase group-hover:text-black transition-colors">
                       {cat.name}
                     </span>
                   </Link>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 border-[#4b3121]/10 hover:bg-[#4b3121] hover:text-white" />
-            <CarouselNext className="hidden md:flex -right-12 border-[#4b3121]/10 hover:bg-[#4b3121] hover:text-white" />
+            <CarouselPrevious className="hidden md:flex -left-12 border-brand/10 hover:bg-brand hover:text-white" />
+            <CarouselNext className="hidden md:flex -right-12 border-brand/10 hover:bg-brand hover:text-white" />
           </Carousel>
         )}
 
         <Link
           href="/shop"
-          className="inline-block px-10 py-4 border border-[#4b3121] rounded-full text-[#4b3121] text-sm uppercase tracking-widest font-medium hover:bg-[#4b3121] hover:text-white transition-all duration-300"
+          className="inline-block px-10 py-4 border border-brand rounded-full text-brand text-sm uppercase tracking-widest font-medium hover:bg-brand hover:text-white transition-all duration-300"
         >
           View All Categories
         </Link>

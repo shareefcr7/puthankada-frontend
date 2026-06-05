@@ -32,9 +32,9 @@ const AddressModal = ({ isOpen, onClose, productData, attributes }: Props) => {
       return;
     }
 
-    const WHATSAPP_PHONE = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || "918304985924"; // Default if not set
+    const WHATSAPP_PHONE = process.env.NEXT_PUBLIC_WHATSAPP_PHONE || ""; // Default if not set
     
-    let messageText = `Hi Gracio Organic! I'd like to buy this product:\n\n`;
+    let messageText = `Hi Puthankada Hardware! I'd like to buy this product:\n\n`;
     messageText += `🛍️ *Product:* ${productData.title}\n`;
     messageText += `🔢 *Quantity:* ${productData.quantity}\n`;
     messageText += `🎨 *Flavour:* ${attributes[0] || "N/A"}\n`;

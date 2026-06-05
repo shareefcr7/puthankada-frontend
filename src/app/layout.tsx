@@ -7,16 +7,19 @@ import HolyLoader from "holy-loader";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "Gracio ORGANIC",
-  description: "Grace in every taste",
+  title: "Puthankada Hardware",
+  description: "Quality hardware items for all your construction and renovation needs",
   icons: {
-    icon: "/images/gracio-logo.jpg",
-    apple: "/images/gracio-logo.jpg",
+    icon: [
+      { url: "/images/puthan.jpg", type: "image/jpeg" },
+    ],
+    apple: { url: "/images/puthan.jpg", type: "image/jpeg" },
+    shortcut: "/images/puthan.jpg",
   }
 };
 
 export const viewport: Viewport = {
-  themeColor: "#4b3121",
+  themeColor: "#2e7d32",
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${integralCF.variable} font-sans flex flex-col min-h-screen`}>
-        <HolyLoader color="#4b3121" />
+        <HolyLoader color="#2e7d32" />
         <Providers>
           {/* Navbar */}
           <TopNavbar />

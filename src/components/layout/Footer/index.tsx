@@ -6,13 +6,7 @@ import Link from "next/link";
 import LayoutSpacing from "./LayoutSpacing";
 
 const socialsData: SocialNetworks[] = [
-  { id: 1, icon: <FaTwitter />, url: "https://twitter.com" },
-  { id: 2, icon: <FaFacebookF />, url: "https://facebook.com" },
-  {
-    id: 3,
-    icon: <FaInstagram />,
-    url: "https://www.instagram.com/gracio_yourorganicstore?igsh=MWI0djhjeHpjaXlkeQ==",
-  },
+  // Social media links removed as requested
 ];
 
 const Footer = () => {
@@ -28,12 +22,12 @@ const Footer = () => {
                   "text-[24px] lg:text-[28px] mb-4 text-brand-light",
                 ])}
               >
-                Gracio ORGANIC
+                Puthankada Hardware
               </h1>
               <p className="text-brand-light/80 text-sm md:text-base mb-6">
-                At Gracio Organic, we bring the finest, organically grown
-                spices, herbs and wellness products from nature to your
-                table. Purest flavors and nutrients, just as nature intended.
+                Your trusted source for quality hardware items, tools, and 
+                construction materials. From hinges to heavy-duty equipment, 
+                we provide everything you need for your building and renovation projects.
               </p>
               <div className="flex items-center">
                 {socialsData.map((social) => (
@@ -51,10 +45,10 @@ const Footer = () => {
           <hr className="h-[1px] border-t-brand-light/20 mb-4" />
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-brand-light/60 text-sm">
-              Gracio Organic © 2024-2025. All Rights Reserved.
+              Puthankada Hardware © 2024-2025. All Rights Reserved.
             </p>
             <p className="text-brand-light/80 font-bold text-xs uppercase tracking-[0.2em]">
-              Grace in every taste
+              Quality Hardware for Every Need
             </p>
           </div>
         </div>

@@ -4,17 +4,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const footerLinksData: FooterLinks[] = [
-  {
-    id: 1,
-    title: "Contact",
-    children: [
-      {
-        id: 11,
-        label: "+91 83049 85924",
-        url: "https://wa.me/918304985924",
-      },
-    ],
-  },
+  // Contact information removed as requested
 ];
 
 const LinksSection = () => {

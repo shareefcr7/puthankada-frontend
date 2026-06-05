@@ -141,8 +141,8 @@ export default function HeroBanner() {
 
   if (loading) {
     return (
-      <div className="w-full h-[90vh] bg-[#fdf5e6] animate-pulse flex items-center justify-center">
-        <div className="text-[#4b3121] font-light tracking-widest uppercase">Luxy</div>
+      <div className="w-full h-[90vh] bg-brand animate-pulse flex items-center justify-center">
+        <div className="text-brand font-light tracking-widest uppercase">Loading...</div>
       </div>
     );
   }
@@ -163,8 +163,11 @@ export default function HeroBanner() {
           aspect-ratio: 16 / 9;
           min-height: 360px;
           max-height: 900px;
-          background: #fdf5e6;
+          background: #ffffff;
           overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .slide-container {
@@ -181,7 +184,7 @@ export default function HeroBanner() {
 
         .text-content {
           max-width: 600px;
-          color: #4b3121;
+          color: var(--brand);
         }
 
         .headline {
@@ -215,13 +218,13 @@ export default function HeroBanner() {
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #4b3121;
+          color: var(--brand);
           cursor: pointer;
           transition: all 0.3s ease;
         }
 
         .nav-btn:hover {
-          background: #4b3121;
+          background: var(--brand);
           color: white;
         }
 
@@ -242,21 +245,21 @@ export default function HeroBanner() {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          border: 1px solid #4b3121;
+          border: 1px solid var(--brand);
           transition: all 0.3s ease;
           cursor: pointer;
           background: transparent;
         }
 
         .indicator.active {
-          background: #4b3121;
+          background: var(--brand);
           width: 24px;
           border-radius: 4px;
         }
 
         @media (max-width: 768px) {
           .nav-btn { display: none; }
-          .slide-container { padding: 0 4vw; text-align: center !important; justify-content: center !important; }
+          .slide-container { padding: 0 4vw; text-align: center !important; justify-content: center !important; align-items: center !important; }
 
           /* mobile-specific banner sizing for consistent crop */
           .banner-root { aspect-ratio: 3 / 4; height: auto !important; min-height: 360px !important; max-height: 820px !important; }
@@ -284,18 +287,16 @@ export default function HeroBanner() {
             className="absolute inset-0"
           >
             <div className="absolute inset-0 overflow-hidden">
-              <div
-                className="absolute inset-0 transition-transform duration-[10000ms] ease-linear"
-                style={{ transform: isMobile ? 'scale(1)' : (paused ? 'scale(1.02)' : 'scale(1.05)') }}
-              >
+              <div className="absolute inset-0 bg-white">
                 <Image
                   src={isMobile && isMobileImageUsed ? slide.mobileImage : slide.desktopImage}
                   alt={slide.headline || 'banner'}
                   fill
-                  className="object-cover"
-                  style={{ objectPosition: isMobile && isMobileImageUsed ? 'center 40%' : 'center' }}
+                  className="object-contain"
+                  style={{ objectPosition: 'center center' }}
                   priority
                   unoptimized
+                  sizes="100vw"
                 />
               </div>
             </div>

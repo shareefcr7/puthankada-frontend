@@ -19,8 +19,8 @@ const TopNavbar = () => {
             ])}
           >
           <Image
-            src="/images/gracio-logo.jpg"
-            alt="Gracio Logo"
+            src="/images/puthan.jpg"
+            alt="Puthankada Logo"
             width={90}
             height={90}
             className="rounded-full"
