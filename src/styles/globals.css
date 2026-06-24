@@ -9,13 +9,13 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
-  /* Primary Green - from logo */
-  --brand: #2e7d32;
+  /* Primary Red */
+  --brand: #d32f2f;
   --brand-dark: #121212;
-  --brand-light: #e8f5e9;
-  /* Secondary Green - from logo */
-  --brand-green: #4caf50;
-  --brand-green-dark: #388e3c;
+  --brand-light: #ffebee;
+  /* Secondary Red */
+  --brand-green: #f44336;
+  --brand-green-dark: #b71c1c;
   /* Accent Yellow - from logo gradient */
   --brand-yellow: #fbbc04;
 }
@@ -35,14 +35,14 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 8%;
     /* primary = Puthankada Orange */
-    --primary: 134 39% 27%;
+    --primary: 0 65% 51%;
     --primary-foreground: 0 0% 100%;
     /* secondary = Puthankada Green */
-    --secondary: 122 39% 49%;
+    --secondary: 0 86% 58%;
     --secondary-foreground: 0 0% 100%;
     --muted: 37 30% 95%;
     --muted-foreground: 21 20% 45%;
-    --accent: 134 39% 27%;
+    --accent: 0 65% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -50,10 +50,10 @@
     --input: 25 30% 90%;
     --ring: 28 100% 48%;
     --chart-1: 28 100% 48%;
-    --chart-2: 122 39% 49%;
+    --chart-2: 0 86% 58%;
     --chart-3: 36 100% 50%;
     --chart-4: 28 100% 60%;
-    --chart-5: 122 39% 60%;
+    --chart-5: 0 86% 58%;
     --radius: 0.5rem;
   }
 }

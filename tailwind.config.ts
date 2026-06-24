@@ -34,10 +34,10 @@ const config: Config = {
       },
       colors: {
         brand: {
-          DEFAULT: "#2e7d32",
-          dark: "#1b5e20",
-          light: "#e8f5e9",
-          green: "#4caf50",
+          DEFAULT: "#d32f2f",
+          dark: "#b71c1c",
+          light: "#ffebee",
+          green: "#f44336",
           yellow: "#fbbc04",
         },
         background: "hsl(var(--background))",
